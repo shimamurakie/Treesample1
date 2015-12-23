@@ -1,0 +1,50 @@
+import java.util.Comparator;
+public class BinTree<K,V> {
+//‐‐‐ ノード ‐‐‐//
+static class Node<K,V> {
+private K key; // キー値
+private V data; // データ
+private Node<K,V> left; // 左子ノード
+private Node<K,V> right; // 右子ノード
+//‐‐‐ コンストラクタ ‐‐‐//
+Node(K key, V data, Node<K,V> left, Node<K,V> right) {
+this.key = key;
+this.data = data;
+this.left = left;
+this.right = right;
+}
+//‐‐‐ キー値を返す ‐‐‐//
+K getKey() {
+return key;
+}
+//‐‐‐ データを返す ‐‐‐//
+V getValue() {
+return data;
+}
+//‐‐‐ データの表示 ‐‐‐//
+void print() {
+System.out.println(data);
+}
+}
+private Node<K,V> root; // 根
+private Comparator<? super K> comparator = null; // コンパレータ
+//‐‐‐ コンストラクタ ‐‐‐//
+public BinTree() {
+root = null;
+}
+//‐‐‐ コンストラクタ ‐‐‐　　//
+public BinTree(Comparator<? super K> c) {
+this();
+comparator = c;
+}
+//‐‐‐ 二つのキー値を比較 ‐‐‐//
+private int comp(K key1, K key2) {
+return (comparator == null) ? ((Comparable<K>)key1).compareTo(key2)
+: comparator.compare(key1, key2);
+}
+//‐‐‐ キーによる探索 ‐‐‐//
+public V search(K key) {
+Node<K,V> p = root; // 根に着目
+while (true) {
+if (p == null) // これ以上進めなければ
+return null; // …
